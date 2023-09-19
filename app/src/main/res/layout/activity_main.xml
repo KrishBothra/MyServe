@@ -64,4 +64,19 @@
         app:layout_constraintVertical_bias="0.499"
         app:srcCompat="@drawable/net" />
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#4873E0"
+        android:backgroundTint="#4873E0"
+        android:textColorHighlight="#4873E0"
+        android:textColorLink="#4873E0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.133"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.415" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
