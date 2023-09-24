@@ -1,6 +1,7 @@
 package com.example.myserve;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.app.AlertDialog;
 import android.database.Cursor;
@@ -10,11 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DataPassListener {
     //test
     DatabaseHelper myDb;
     EditText editText_name,editText_surname,editText_marks,editText_id;
-    Button button_add,button_view,button_update,button_delete;
+    Button deuce,ad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +27,36 @@ public class MainActivity extends AppCompatActivity {
 //        editText_name = (EditText)findViewById(R.id.editText_name);
 //        editText_surname = (EditText)findViewById(R.id.editText_surname);
 //        editText_id = (EditText)findViewById(R.id.editText_id);
-//        button_add = (Button)findViewById(R.id.button_add);
-//        button_view = (Button)findViewById(R.id.button_view);
+        deuce = (Button)findViewById(R.id.deuce);
+        ad = (Button)findViewById(R.id.ad);
 //        button_update = (Button)findViewById(R.id.button_update);
 //        button_delete = (Button)findViewById(R.id.button_delete);
 //        AddData();
 //        viewAll();
 //        UpdateData();
 //        DeleteData();
+        deuceClick();
+    }
+
+    @Override
+    public void onDataPass(String data) {
+        Toast.makeText(MainActivity.this,data,Toast.LENGTH_LONG).show();
+    }
+
+    public void deuceClick(){
+        deuce.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.fragmentContainerView, amount_of_serve.class,null)
+                                .setReorderingAllowed(true)
+                                .addToBackStack(null)
+                                .commit();
+                    }
+                }
+        );
     }
 
 //    public void AddData(){

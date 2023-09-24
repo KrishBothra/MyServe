@@ -97,7 +97,7 @@
         app:layout_constraintVertical_bias="0.75" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/deuce"
         android:layout_width="149dp"
         android:layout_height="148dp"
         android:background="#4873E0"
@@ -110,7 +110,7 @@
         app:layout_constraintVertical_bias="0.321" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/ad"
         android:layout_width="149dp"
         android:layout_height="148dp"
         android:background="#4873E0"
@@ -136,7 +136,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
-        android:name="com.example.myserve.amount_of_serve"
+        android:name="com.example.myserve.BlankFragment"
         android:layout_width="300dp"
         android:layout_height="166dp"
         app:layout_constraintBottom_toBottomOf="parent"
