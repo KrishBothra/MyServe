@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +29,8 @@ public class amount_of_serve extends Fragment {
     private String mParam2;
 
     Button enter;
+
+    EditText editText;
 
     public amount_of_serve() {
         // Required empty public constructor
@@ -51,23 +54,26 @@ public class amount_of_serve extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-        enter = (Button) enter.findViewById(R.id.enter);
-        getData();
-    }
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        if (getArguments() != null) {
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
+//        }
+//
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        return inflater.inflate(R.layout.fragment_amount_of_serve, container, false);
+        View view = inflater.inflate(R.layout.fragment_amount_of_serve, container, false);
+        enter = view.findViewById(R.id.enter);
+        editText = view.findViewById(R.id.editTextText);
+        getData();
+        return view;
     }
 
     public void getData(){
@@ -75,7 +81,8 @@ public class amount_of_serve extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        
+                        sendDataToActivity(String.valueOf(editText.getText()));
+
                     }
                 }
         );
@@ -97,9 +104,8 @@ public class amount_of_serve extends Fragment {
     }
 
     // Usage example
-    private void someMethod() {
-        // Pass data to the activity
-        String dataToSend = "Your data";
-        sendDataToActivity(dataToSend);
-    }
+//    private void someMethod(SdatatoSend) {
+//        // Pass data to the activity
+//        sendDataToActivity(dataToSend);
+//    }
 }

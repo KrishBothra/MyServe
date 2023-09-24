@@ -38,9 +38,47 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
         deuceClick();
     }
 
+    private int fragmentSwitch =0;
+
     @Override
     public void onDataPass(String data) {
-        Toast.makeText(MainActivity.this,data,Toast.LENGTH_LONG).show();
+//        Toast.makeText(MainActivity.this,String.valueOf(fragmentSwitch),Toast.LENGTH_LONG).show();
+        fragmentSwitch++;
+        Toast.makeText(MainActivity.this,String.valueOf(fragmentSwitch),Toast.LENGTH_LONG).show();
+        if(fragmentSwitch>0){
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainerView, amount_of_serve_in.class,null)
+                    .setReorderingAllowed(true)
+                    .addToBackStack(null)
+                    .commit();
+        }
+        if (fragmentSwitch>1) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainerView, first_or_second.class,null)
+                    .setReorderingAllowed(true)
+                    .addToBackStack(null)
+                    .commit();
+        }
+        if (fragmentSwitch>2) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainerView, type_of_serve.class,null)
+                    .setReorderingAllowed(true)
+                    .addToBackStack(null)
+                    .commit();
+        }
+        if (fragmentSwitch>3) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainerView, BlankFragment.class,null)
+                    .setReorderingAllowed(true)
+                    .addToBackStack(null)
+                    .commit();
+            fragmentSwitch = 0;
+        }
     }
 
     public void deuceClick(){
