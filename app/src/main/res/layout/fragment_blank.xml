@@ -13,6 +13,7 @@
         android:layout_height="44dp"
         android:text="All Time Stats"
         android:textAlignment="center"
+        android:textColor="#FFFFFF"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

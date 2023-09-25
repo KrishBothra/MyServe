@@ -117,48 +117,51 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
 
     private void displayData() {
         Cursor res = myDb.getALlData();
+        float percentage = 0,percentage2 = 0;
         while(res.moveToNext()) {
-            float percentage = 0,percentage2 = 0;
-            Toast.makeText(MainActivity.this,res.getString(5),Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this,res.getString(5),Toast.LENGTH_SHORT).show();
             if(res.getString(5).equals("deuce")&&res.getInt(3)==1) {
                 allTimeTotal += res.getInt(1);
                 allTimeMade += res.getInt(2);
                 percentage = (allTimeMade/allTimeTotal)*100;
 
             }
-
+        }
+        res = myDb.getALlData();
+        while(res.moveToNext()){
             if(res.getString(5).equals("deuce")&&res.getInt(3)==2) {
                 allTimeTotalSecond += res.getInt(1);
                 allTimeMadeSecond += res.getInt(2);
                 percentage2 = (allTimeMadeSecond/allTimeTotalSecond)*100;
 
             }
-
-            deuce.setText("First Serve: "+percentage+"%\nSecond Serve: "+percentage2+"%");
         }
+        deuce.setText("First Serve: \n"+percentage+"%\nSecond Serve: \n"+percentage2+"%");
         allTimeMade = 0;
         allTimeTotal = 0;
         allTimeTotalSecond = 0;
         allTimeMadeSecond = 0;
+        res = myDb.getALlData();
+        percentage = 0;
+        percentage2 = 0;
         while(res.moveToNext()) {
-            float percentage = 0,percentage2 = 0;
-
             if(res.getString(5).equals("ad")&&res.getInt(3)==1) {
                 allTimeTotal += res.getInt(1);
                 allTimeMade += res.getInt(2);
                 percentage = (allTimeMade/allTimeTotal)*100;
 
             }
-
+        }
+        res = myDb.getALlData();
+        while(res.moveToNext()) {
             if(res.getString(5).equals("ad")&&res.getInt(3)==2) {
                 allTimeTotalSecond += res.getInt(1);
                 allTimeMadeSecond += res.getInt(2);
                 percentage2 = (allTimeMadeSecond/allTimeTotalSecond)*100;
 
             }
-
-            ad.setText("First Serve: "+percentage+"%\nSecond Serve: "+percentage2+"%");
         }
+        ad.setText("First Serve: "+percentage+"%\nSecond Serve: "+percentage2+"%");
     }
 
     public void deuceClick(){
