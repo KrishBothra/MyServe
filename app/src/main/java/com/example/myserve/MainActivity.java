@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
     DatabaseHelper myDb;
     EditText editText_name,editText_surname,editText_marks,editText_id;
     Button deuce,ad;
+    int total,made,number;
+    String type,side;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
         fragmentSwitch++;
         Toast.makeText(MainActivity.this,String.valueOf(fragmentSwitch),Toast.LENGTH_LONG).show();
         if(fragmentSwitch>0){
-
+            total = Integer.parseInt(data);
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.fragmentContainerView, amount_of_serve_in.class,null)
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
                     .commit();
         }
         if (fragmentSwitch>1) {
+            made = Integer.parseInt(data);
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.fragmentContainerView, first_or_second.class,null)
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
                     .commit();
         }
         if (fragmentSwitch>2) {
+            number = Integer.parseInt(data);
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.fragmentContainerView, type_of_serve.class,null)
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
                     .commit();
         }
         if (fragmentSwitch>3) {
+            type = data;
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.fragmentContainerView, BlankFragment.class,null)
@@ -78,6 +83,11 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
                     .addToBackStack(null)
                     .commit();
             fragmentSwitch = 0;
+
+
+//            myDb.insertData(total, made,number,type,side);
+
+
         }
     }
 

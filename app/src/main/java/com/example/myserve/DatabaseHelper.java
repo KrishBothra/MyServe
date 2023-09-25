@@ -17,6 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_3 = "MADE";
     public static final String COL_4 = "NUMBER";
     public static final String COL_5 = "TYPE";
+    public static final String COL_6 = "SIDE";
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
 //        SQLiteDatabase db = this.getWritableDatabase();

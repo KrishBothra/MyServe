@@ -1,12 +1,15 @@
 package com.example.myserve;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +27,7 @@ public class first_or_second extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    Button firstServe,secondServe;
     public first_or_second() {
         // Required empty public constructor
     }
@@ -59,6 +63,34 @@ public class first_or_second extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first_or_second, container, false);
+        View view = inflater.inflate(R.layout.fragment_first_or_second, container, false);
+        firstServe = view.findViewById(R.id.firstServe);
+        secondServe = view.findViewById(R.id.secondServe);
+        firstServe.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        sendDataToActivity("1");
+                    }
+                }
+        );
+        return view;
     }
+
+    private DataPassListener dataPassListener;
+
+    // Attach the interface to the fragment
+
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        dataPassListener = (DataPassListener) context;
+    }
+
+    // Method to pass data to the activity
+    private void sendDataToActivity(String data) {
+        dataPassListener.onDataPass(data);
+    }
+
 }
