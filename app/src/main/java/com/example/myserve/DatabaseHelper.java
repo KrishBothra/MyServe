@@ -26,7 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //KAY = KEY
-        db.execSQL("create table "+ TABLE_NAME +"  (DATE INTEGER PRIMARY KEY AUTOINCREMENT,TOTAL INTEGER,MADE INTEGER,NUMBER INTEGER,TYPE STRING)");
+        db.execSQL("create table "+ TABLE_NAME +"  (DATE INTEGER PRIMARY KEY AUTOINCREMENT,TOTAL INTEGER,MADE INTEGER,NUMBER INTEGER,TYPE STRING,SIDE STRING)");
     }
 
     @Override
@@ -35,13 +35,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(Integer total, Integer made,Integer number, String type){
+    public boolean insertData(Integer total, Integer made, Integer number, String type, String side){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2,total);
         contentValues.put(COL_3,made);
         contentValues.put(COL_4,number);
         contentValues.put(COL_5,type);
+        contentValues.put(COL_6,side);
         long result = db.insert(TABLE_NAME, null,contentValues);
         if(result == -1){
             return false;

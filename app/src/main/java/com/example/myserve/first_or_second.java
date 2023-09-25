@@ -74,6 +74,15 @@ public class first_or_second extends Fragment {
                     }
                 }
         );
+
+        secondServe.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        sendDataToActivity("2");
+                    }
+                }
+        );
         return view;
     }
 

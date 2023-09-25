@@ -16,7 +16,10 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
     DatabaseHelper myDb;
     EditText editText_name,editText_surname,editText_marks,editText_id;
     Button deuce,ad;
-    int total,made,number;
+    int total,made,number = 0;
+    float allTimeTotal,allTimeMade = 0;
+    float allTimeTotalSecond,allTimeMadeSecond = 0;
+
     String type,side;
 
     @Override
@@ -38,6 +41,25 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
 //        UpdateData();
 //        DeleteData();
         deuceClick();
+        adClick();
+//        displayData();
+    }
+
+    private void adClick() {
+        ad.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        side = "ad";
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.fragmentContainerView, amount_of_serve.class,null)
+                                .setReorderingAllowed(true)
+                                .addToBackStack(null)
+                                .commit();
+                    }
+                }
+        );
     }
 
     private int fragmentSwitch =0;
@@ -47,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
 //        Toast.makeText(MainActivity.this,String.valueOf(fragmentSwitch),Toast.LENGTH_LONG).show();
         fragmentSwitch++;
         Toast.makeText(MainActivity.this,String.valueOf(fragmentSwitch),Toast.LENGTH_LONG).show();
-        if(fragmentSwitch>0){
+        if(fragmentSwitch==1){
             total = Integer.parseInt(data);
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
@@ -56,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
                     .addToBackStack(null)
                     .commit();
         }
-        if (fragmentSwitch>1) {
+        if (fragmentSwitch==2) {
             made = Integer.parseInt(data);
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
@@ -65,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
                     .addToBackStack(null)
                     .commit();
         }
-        if (fragmentSwitch>2) {
+        if (fragmentSwitch==3) {
             number = Integer.parseInt(data);
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
@@ -74,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
                     .addToBackStack(null)
                     .commit();
         }
-        if (fragmentSwitch>3) {
+        if (fragmentSwitch==4) {
             type = data;
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
@@ -85,9 +107,57 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
             fragmentSwitch = 0;
 
 
-//            myDb.insertData(total, made,number,type,side);
+            myDb.insertData(total,made,number,type,side);
+            displayData();
 
 
+        }
+
+    }
+
+    private void displayData() {
+        Cursor res = myDb.getALlData();
+        while(res.moveToNext()) {
+            float percentage = 0,percentage2 = 0;
+            Toast.makeText(MainActivity.this,res.getString(5),Toast.LENGTH_LONG).show();
+            if(res.getString(5).equals("deuce")&&res.getInt(3)==1) {
+                allTimeTotal += res.getInt(1);
+                allTimeMade += res.getInt(2);
+                percentage = (allTimeMade/allTimeTotal)*100;
+
+            }
+
+            if(res.getString(5).equals("deuce")&&res.getInt(3)==2) {
+                allTimeTotalSecond += res.getInt(1);
+                allTimeMadeSecond += res.getInt(2);
+                percentage2 = (allTimeMadeSecond/allTimeTotalSecond)*100;
+
+            }
+
+            deuce.setText("First Serve: "+percentage+"%\nSecond Serve: "+percentage2+"%");
+        }
+        allTimeMade = 0;
+        allTimeTotal = 0;
+        allTimeTotalSecond = 0;
+        allTimeMadeSecond = 0;
+        while(res.moveToNext()) {
+            float percentage = 0,percentage2 = 0;
+
+            if(res.getString(5).equals("ad")&&res.getInt(3)==1) {
+                allTimeTotal += res.getInt(1);
+                allTimeMade += res.getInt(2);
+                percentage = (allTimeMade/allTimeTotal)*100;
+
+            }
+
+            if(res.getString(5).equals("ad")&&res.getInt(3)==2) {
+                allTimeTotalSecond += res.getInt(1);
+                allTimeMadeSecond += res.getInt(2);
+                percentage2 = (allTimeMadeSecond/allTimeTotalSecond)*100;
+
+            }
+
+            ad.setText("First Serve: "+percentage+"%\nSecond Serve: "+percentage2+"%");
         }
     }
 
@@ -96,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        side = "deuce";
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         fragmentManager.beginTransaction()
                                 .replace(R.id.fragmentContainerView, amount_of_serve.class,null)
@@ -133,7 +204,6 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
 //                        Cursor res = myDb.getALlData();
 //                         if(res.getCount()==0){
 //                             //show messages
-//                             showMessage("Error","Nothing found");
 //                             return;
 //                         }
 //
@@ -143,10 +213,12 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
 //                             buffer.append("Name :"+ res.getString(1)+"\n");
 //                             buffer.append("Surname :"+ res.getString(2)+"\n");
 //                             buffer.append("Marks :"+ res.getString(3)+"\n\n");
+//
+//
 //                         }
 //
 //                         //show all data
-//                        showMessage("Data", buffer.toString());
+//
 //                    }
 //                }
 //        );
