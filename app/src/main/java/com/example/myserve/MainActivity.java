@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
 //        DeleteData();
         deuceClick();
         adClick();
-//        displayData();
+        displayData();
     }
 
     private void adClick() {
