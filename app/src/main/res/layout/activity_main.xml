@@ -112,6 +112,36 @@
         app:layout_constraintVertical_bias="0.321" />
 
     <Button
+        android:id="@+id/deuceYour"
+        android:layout_width="143dp"
+        android:layout_height="161dp"
+        android:background="#4873E0"
+        android:shadowColor="#FF0000"
+        android:textColor="#F8F8F8"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.188"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.673" />
+
+    <Button
+        android:id="@+id/adYour"
+        android:layout_width="143dp"
+        android:layout_height="161dp"
+        android:background="#4873E0"
+        android:shadowColor="#FF0000"
+        android:textColor="#F8F8F8"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.812"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.673" />
+
+    <Button
         android:id="@+id/ad"
         android:layout_width="149dp"
         android:layout_height="148dp"

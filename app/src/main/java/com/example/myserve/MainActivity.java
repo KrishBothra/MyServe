@@ -15,13 +15,20 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
     //test
     DatabaseHelper myDb;
     EditText editText_name,editText_surname,editText_marks,editText_id;
-    Button deuce,ad;
+    Button deuce,ad,deuceYour,adYour;
     int total,made,number = 0;
     float allTimeTotal,allTimeMade = 0;
     float allTimeTotalSecond,allTimeMadeSecond = 0;
 
     String type,side;
+    private float topSpinMade = 0;
+    private float topSpinTotal = 0;
 
+    private float sliceMade = 0;
+    private float sliceTotal = 0;
+
+    private float flatMade = 0;
+    private float flatTotal = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
 //        editText_id = (EditText)findViewById(R.id.editText_id);
         deuce = (Button)findViewById(R.id.deuce);
         ad = (Button)findViewById(R.id.ad);
+        deuceYour = findViewById(R.id.deuceYour);
+        adYour = findViewById(R.id.adYour);
 //        button_update = (Button)findViewById(R.id.button_update);
 //        button_delete = (Button)findViewById(R.id.button_delete);
 //        AddData();
@@ -114,16 +123,16 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
         }
 
     }
+    float percentage = 0,percentage2 = 0,percentageTopSpin = 0,percentageSlice = 0,percentageFlat = 0;
 
     private void displayData() {
         Cursor res = myDb.getALlData();
-        float percentage = 0,percentage2 = 0;
         while(res.moveToNext()) {
-            Toast.makeText(MainActivity.this,res.getString(5),Toast.LENGTH_SHORT).show();
             if(res.getString(5).equals("deuce")&&res.getInt(3)==1) {
                 allTimeTotal += res.getInt(1);
                 allTimeMade += res.getInt(2);
                 percentage = (allTimeMade/allTimeTotal)*100;
+                displayTypePercentages(res);
 
             }
         }
@@ -133,10 +142,18 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
                 allTimeTotalSecond += res.getInt(1);
                 allTimeMadeSecond += res.getInt(2);
                 percentage2 = (allTimeMadeSecond/allTimeTotalSecond)*100;
-
+                displayTypePercentages(res);
             }
         }
+        percentage =  Math.round(percentage * 100) / 100;
+        percentage2 =  Math.round(percentage2 * 100) / 100;
+        percentageTopSpin =  Math.round(percentageTopSpin * 100) / 100;
+        percentageSlice =  Math.round(percentageSlice * 100) / 100;
+        percentageFlat =  Math.round(percentageFlat * 100) / 100;
+        Toast.makeText(MainActivity.this,topSpinMade+"",Toast.LENGTH_SHORT).show();
+
         deuce.setText("First Serve: \n"+percentage+"%\nSecond Serve: \n"+percentage2+"%");
+        deuceYour.setText("Top Spin: \n"+percentageTopSpin+"%\nSlice: \n"+percentageSlice+"%\nFlat: \n"+percentageFlat+"%");
         allTimeMade = 0;
         allTimeTotal = 0;
         allTimeTotalSecond = 0;
@@ -144,12 +161,21 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
         res = myDb.getALlData();
         percentage = 0;
         percentage2 = 0;
+        percentageSlice = 0;
+        percentageTopSpin = 0;
+        percentageFlat = 0;
+        topSpinTotal = 0;
+        topSpinMade = 0;
+        sliceTotal = 0;
+        sliceMade = 0;
+        flatTotal = 0;
+        flatMade = 0;
         while(res.moveToNext()) {
             if(res.getString(5).equals("ad")&&res.getInt(3)==1) {
                 allTimeTotal += res.getInt(1);
                 allTimeMade += res.getInt(2);
                 percentage = (allTimeMade/allTimeTotal)*100;
-
+                displayTypePercentages(res);
             }
         }
         res = myDb.getALlData();
@@ -158,11 +184,51 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
                 allTimeTotalSecond += res.getInt(1);
                 allTimeMadeSecond += res.getInt(2);
                 percentage2 = (allTimeMadeSecond/allTimeTotalSecond)*100;
-
+                displayTypePercentages(res);
             }
         }
-        ad.setText("First Serve: "+percentage+"%\nSecond Serve: "+percentage2+"%");
+        percentage =  Math.round(percentage * 100) / 100;
+        percentage2 =  Math.round(percentage2 * 100) / 100;
+        percentageTopSpin =  Math.round(percentageTopSpin * 100) / 100;
+        percentageSlice =  Math.round(percentageSlice * 100) / 100;
+        percentageFlat =  Math.round(percentageFlat * 100) / 100;
+        ad.setText("First Serve: \n"+percentage+"%\nSecond Serve: \n"+percentage2+"%");
+        adYour.setText("Top Spin: \n"+percentageTopSpin+"%\nSlice: \n"+percentageSlice+"%\nFlat: \n"+percentageFlat+"%");
+        allTimeMade = 0;
+        allTimeTotal = 0;
+        allTimeTotalSecond = 0;
+        allTimeMadeSecond = 0;
+        res = myDb.getALlData();
+        percentage = 0;
+        percentage2 = 0;
+        percentageSlice = 0;
+        percentageTopSpin = 0;
+        percentageFlat = 0;
+        topSpinTotal = 0;
+        topSpinMade = 0;
+        sliceTotal = 0;
+        sliceMade = 0;
+        flatTotal = 0;
+        flatMade = 0;
+
     }
+
+    private void displayTypePercentages(Cursor res){
+        if(res.getString(4).equals("topspin")){
+            topSpinTotal += res.getInt(1);
+            topSpinMade += res.getInt(2);
+            percentageTopSpin = (topSpinMade/topSpinTotal)*100;
+        } else if (res.getString(4).equals("slice")) {
+            sliceTotal += res.getInt(1);
+            sliceMade += res.getInt(2);
+            percentageSlice  = (sliceMade/sliceTotal)*100;
+        }else{
+            flatTotal += res.getInt(1);
+            flatMade += res.getInt(2);
+            percentageFlat  = (flatMade/flatTotal)*100;
+        }
+    }
+
 
     public void deuceClick(){
         deuce.setOnClickListener(
