@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements DataPassListener {
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
 
     private float flatMade = 0;
     private float flatTotal = 0;
+
+    ImageView calender;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,15 +46,28 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
         ad = (Button)findViewById(R.id.ad);
         deuceYour = findViewById(R.id.deuceYour);
         adYour = findViewById(R.id.adYour);
+        calender = findViewById(R.id.calender);
 //        button_update = (Button)findViewById(R.id.button_update);
 //        button_delete = (Button)findViewById(R.id.button_delete);
 //        AddData();
 //        viewAll();
 //        UpdateData();
 //        DeleteData();
+        calenderClick();
         deuceClick();
         adClick();
         displayData();
+    }
+
+    private void calenderClick() {
+        calender.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        
+                    }
+                }
+        );
     }
 
     private void adClick() {
@@ -77,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
     public void onDataPass(String data) {
 //        Toast.makeText(MainActivity.this,String.valueOf(fragmentSwitch),Toast.LENGTH_LONG).show();
         fragmentSwitch++;
-        Toast.makeText(MainActivity.this,String.valueOf(fragmentSwitch),Toast.LENGTH_LONG).show();
+//        Toast.makeText(MainActivity.this,String.valueOf(fragmentSwitch),Toast.LENGTH_LONG).show();
         if(fragmentSwitch==1){
             total = Integer.parseInt(data);
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -150,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
         percentageTopSpin =  Math.round(percentageTopSpin * 100) / 100;
         percentageSlice =  Math.round(percentageSlice * 100) / 100;
         percentageFlat =  Math.round(percentageFlat * 100) / 100;
-        Toast.makeText(MainActivity.this,topSpinMade+"",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(MainActivity.this,topSpinMade+"",Toast.LENGTH_SHORT).show();
 
         deuce.setText("First Serve: \n"+percentage+"%\nSecond Serve: \n"+percentage2+"%");
         deuceYour.setText("Top Spin: \n"+percentageTopSpin+"%\nSlice: \n"+percentageSlice+"%\nFlat: \n"+percentageFlat+"%");
