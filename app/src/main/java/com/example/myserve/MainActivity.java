@@ -1,11 +1,16 @@
 package com.example.myserve;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GestureDetectorCompat;
 import androidx.fragment.app.FragmentManager;
 
 import android.app.AlertDialog;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,12 +36,17 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
     private float flatMade = 0;
     private float flatTotal = 0;
 
+    private GestureDetectorCompat mGestureDetector;
+
     ImageView calender;
+    boolean calenderChecked = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myDb = new DatabaseHelper(this);
+//        mGestureDetector = new GestureDetectorCompat(this,new GestureListener());
 
 //        editText_marks = (EditText) findViewById(R.id.editText_marks);
 //        editText_name = (EditText)findViewById(R.id.editText_name);
@@ -47,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
         deuceYour = findViewById(R.id.deuceYour);
         adYour = findViewById(R.id.adYour);
         calender = findViewById(R.id.calender);
+        mGestureDetector = new GestureDetectorCompat(this,new GestureListener());
 //        button_update = (Button)findViewById(R.id.button_update);
 //        button_delete = (Button)findViewById(R.id.button_delete);
 //        AddData();
@@ -64,10 +75,96 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        
+                        calenderChecked = true;
+                        Cursor res = myDb.getALlData();
+                        res.moveToLast();
+                        displayDataCal(res);
+
+
                     }
                 }
         );
+    }
+
+    public void displayDataCal(Cursor res){
+        if(res.getString(5).equals("deuce")&&res.getInt(3)==1) {
+            allTimeTotal += res.getInt(1);
+            allTimeMade += res.getInt(2);
+            percentage = (allTimeMade/allTimeTotal)*100;
+            deuce.setText("First Serve: \n"+percentage+"%");
+            ad.setText("");
+            adYour.setText("");
+            displayDataCalType("deuce",res);
+        } else if(res.getString(5).equals("deuce")&&res.getInt(3)==2) {
+            allTimeTotal += res.getInt(1);
+            allTimeMade += res.getInt(2);
+            percentage = (allTimeMade/allTimeTotal)*100;
+            deuce.setText("Second Serve: \n"+percentage+"%");\
+            ad.setText("");
+            adYour.setText("");
+            displayDataCalType("deuce",res);
+        }
+
+        if(res.getString(5).equals("ad")&&res.getInt(3)==1) {
+            allTimeTotal += res.getInt(1);
+            allTimeMade += res.getInt(2);
+            percentage = (allTimeMade/allTimeTotal)*100;
+            ad.setText("First Serve: \n"+percentage+"%");
+            deuce.setText("");
+            deuceYour.setText("");
+            displayDataCalType("ad",res);
+        } else if(res.getString(5).equals("ad")&&res.getInt(3)==2) {
+            allTimeTotal += res.getInt(1);
+            allTimeMade += res.getInt(2);
+            percentage = (allTimeMade/allTimeTotal)*100;
+            ad.setText("Second Serve: \n"+percentage+"%");
+            deuce.setText("");
+            deuceYour.setText("");
+            displayDataCalType("ad",res);
+        }
+    }
+
+    private void displayDataCalType(String side,Cursor res) {
+        if(res.getInt())
+    }
+
+    private class GestureListener extends GestureDetector.SimpleOnGestureListener {
+        //CONTROL + 0
+        // when you first create the class gives you options for all the functions you wanna make
+        //for gesture listeners
+
+
+        @Override
+        public void onLongPress(@NonNull MotionEvent e) {
+            if(calenderChecked) {
+                Toast.makeText(MainActivity.this, "Long Press", Toast.LENGTH_SHORT).show();
+            }
+            super.onLongPress(e);
+        }
+
+        @Override
+        public boolean onDoubleTapEvent(@NonNull MotionEvent e) {
+            if(calenderChecked) {
+                Toast.makeText(MainActivity.this, "Double Tap", Toast.LENGTH_SHORT).show();
+            }
+            return super.onDoubleTap(e);
+        }
+
+        @Override
+        public boolean onSingleTapConfirmed(@NonNull MotionEvent e) {
+            if(calenderChecked) {
+                Toast.makeText(MainActivity.this, "Single Tap Confirm", Toast.LENGTH_SHORT).show();
+            }
+            return super.onSingleTapConfirmed(e);
+        }
+
+
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        mGestureDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
     }
 
     private void adClick() {
@@ -148,6 +245,7 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
                 allTimeTotal += res.getInt(1);
                 allTimeMade += res.getInt(2);
                 percentage = (allTimeMade/allTimeTotal)*100;
+                percentage =  Math.round(percentage * 100) / 100;
                 displayTypePercentages(res);
 
             }
