@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
             allTimeTotal += res.getInt(1);
             allTimeMade += res.getInt(2);
             percentage = (allTimeMade/allTimeTotal)*100;
-            deuce.setText("Second Serve: \n"+percentage+"%");\
+            deuce.setText("Second Serve: \n"+percentage+"%");
             ad.setText("");
             adYour.setText("");
             displayDataCalType("deuce",res);
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
     }
 
     private void displayDataCalType(String side,Cursor res) {
-        if(res.getInt())
+//        if(res.getInt())
     }
 
     private class GestureListener extends GestureDetector.SimpleOnGestureListener {
