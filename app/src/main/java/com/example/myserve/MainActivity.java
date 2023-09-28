@@ -6,6 +6,7 @@ import androidx.core.view.GestureDetectorCompat;
 import androidx.fragment.app.FragmentManager;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -78,7 +79,9 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
                         calenderChecked = true;
                         Cursor res = myDb.getALlData();
                         res.moveToLast();
-                        displayDataCal(res);
+//                        displayDataCal(res);
+                        Intent calenderSwitch = new Intent(getApplicationContext(), CalenderActivity.class);
+                        startActivity(calenderSwitch);
 
 
                     }
@@ -86,47 +89,59 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
         );
     }
 
-    public void displayDataCal(Cursor res){
-        if(res.getString(5).equals("deuce")&&res.getInt(3)==1) {
-            allTimeTotal += res.getInt(1);
-            allTimeMade += res.getInt(2);
-            percentage = (allTimeMade/allTimeTotal)*100;
-            deuce.setText("First Serve: \n"+percentage+"%");
-            ad.setText("");
-            adYour.setText("");
-            displayDataCalType("deuce",res);
-        } else if(res.getString(5).equals("deuce")&&res.getInt(3)==2) {
-            allTimeTotal += res.getInt(1);
-            allTimeMade += res.getInt(2);
-            percentage = (allTimeMade/allTimeTotal)*100;
-            deuce.setText("Second Serve: \n"+percentage+"%");
-            ad.setText("");
-            adYour.setText("");
-            displayDataCalType("deuce",res);
-        }
-
-        if(res.getString(5).equals("ad")&&res.getInt(3)==1) {
-            allTimeTotal += res.getInt(1);
-            allTimeMade += res.getInt(2);
-            percentage = (allTimeMade/allTimeTotal)*100;
-            ad.setText("First Serve: \n"+percentage+"%");
-            deuce.setText("");
-            deuceYour.setText("");
-            displayDataCalType("ad",res);
-        } else if(res.getString(5).equals("ad")&&res.getInt(3)==2) {
-            allTimeTotal += res.getInt(1);
-            allTimeMade += res.getInt(2);
-            percentage = (allTimeMade/allTimeTotal)*100;
-            ad.setText("Second Serve: \n"+percentage+"%");
-            deuce.setText("");
-            deuceYour.setText("");
-            displayDataCalType("ad",res);
-        }
-    }
-
-    private void displayDataCalType(String side,Cursor res) {
-//        if(res.getInt())
-    }
+//    public void displayDataCal(Cursor res){
+//        if(res.getString(5).equals("deuce")&&res.getInt(3)==1) {
+//            allTimeTotal += res.getInt(1);
+//            allTimeMade += res.getInt(2);
+//            percentage = (allTimeMade/allTimeTotal)*100;
+//            deuce.setText("First Serve: \n"+percentage+"%");
+//            ad.setText("");
+//            adYour.setText("");
+//            displayDataCalType("deuce",res);
+//        } else if(res.getString(5).equals("deuce")&&res.getInt(3)==2) {
+//            allTimeTotal += res.getInt(1);
+//            allTimeMade += res.getInt(2);
+//            percentage = (allTimeMade/allTimeTotal)*100;
+//            deuce.setText("Second Serve: \n"+percentage+"%");
+//            ad.setText("");
+//            adYour.setText("");
+//            displayDataCalType("deuce",res);
+//        }
+//
+//        if(res.getString(5).equals("ad")&&res.getInt(3)==1) {
+//            allTimeTotal += res.getInt(1);
+//            allTimeMade += res.getInt(2);
+//            percentage = (allTimeMade/allTimeTotal)*100;
+//            ad.setText("First Serve: \n"+percentage+"%");
+//            deuce.setText("");
+//            deuceYour.setText("");
+//            displayDataCalType("ad",res);
+//        } else if(res.getString(5).equals("ad")&&res.getInt(3)==2) {
+//            allTimeTotal += res.getInt(1);
+//            allTimeMade += res.getInt(2);
+//            percentage = (allTimeMade/allTimeTotal)*100;
+//            ad.setText("Second Serve: \n"+percentage+"%");
+//            deuce.setText("");
+//            deuceYour.setText("");
+//            displayDataCalType("ad",res);
+//        }
+//    }
+//
+//    private void displayDataCalType(String side,Cursor res) {
+//        if(res.getString(4).equals("topspin")){
+//            topSpinTotal += res.getInt(1);
+//            topSpinMade += res.getInt(2);
+//            percentageTopSpin = (topSpinMade/topSpinTotal)*100;
+//        } else if (res.getString(4).equals("slice")) {
+//            sliceTotal += res.getInt(1);
+//            sliceMade += res.getInt(2);
+//            percentageSlice  = (sliceMade/sliceTotal)*100;
+//        }else{
+//            flatTotal += res.getInt(1);
+//            flatMade += res.getInt(2);
+//            percentageFlat  = (flatMade/flatTotal)*100;
+//        }
+//    }
 
     private class GestureListener extends GestureDetector.SimpleOnGestureListener {
         //CONTROL + 0
