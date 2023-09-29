@@ -18,6 +18,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_4 = "NUMBER";
     public static final String COL_5 = "TYPE";
     public static final String COL_6 = "SIDE";
+
+    private static DatabaseHelper instance;
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
 //        SQLiteDatabase db = this.getWritableDatabase();
@@ -33,6 +35,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
         onCreate(db);
+    }
+
+    public static synchronized DatabaseHelper getInstance(Context context) {
+        if (instance == null) {
+            instance = new DatabaseHelper(context.getApplicationContext());
+        }
+        return instance;
     }
 
     public boolean insertData(Integer total, Integer made, Integer number, String type, String side){

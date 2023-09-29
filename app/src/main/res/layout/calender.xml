@@ -7,8 +7,21 @@
     android:background="#4873E0"
     tools:context=".CalenderActivity">
 
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barchart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </com.github.mikephil.charting.charts.BarChart>
+
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/title"
         android:layout_width="218dp"
         android:layout_height="49dp"
         android:text="Review All Sessions"
@@ -18,10 +31,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.544"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.057" />
+        app:layout_constraintVertical_bias="0.017" />
 
     <Button
         android:id="@+id/deuceCal"
@@ -40,8 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="First"
-        android:clickable="false"
-        android:alpha="0.5"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.209"
@@ -66,8 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Second"
-        android:clickable="false"
-        android:alpha="0.5"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.8"
@@ -80,8 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Slice"
-        android:clickable="false"
-        android:alpha="0.5"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -94,8 +104,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Top Spin"
-        android:clickable="false"
-        android:alpha="0.5"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.052"
@@ -107,8 +116,7 @@
         android:id="@+id/flatCal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="false"
-        android:alpha="0.5"
+        android:enabled="false"
         android:text="Flat"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -118,7 +126,7 @@
         app:layout_constraintVertical_bias="0.721" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/typeT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Type of Serve"
@@ -133,7 +141,7 @@
         app:layout_constraintVertical_bias="0.613" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/sideT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Side"
@@ -148,7 +156,7 @@
         app:layout_constraintVertical_bias="0.231" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/firstT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="First Or Second"
@@ -161,4 +169,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.398" />
+
+    <ImageView
+        android:id="@+id/homeB"
+        android:layout_width="76dp"
+        android:layout_height="61dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/home" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

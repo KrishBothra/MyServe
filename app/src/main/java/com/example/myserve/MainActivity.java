@@ -6,6 +6,7 @@ import androidx.core.view.GestureDetectorCompat;
 import androidx.fragment.app.FragmentManager;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -39,14 +40,14 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
 
     private GestureDetectorCompat mGestureDetector;
 
-    ImageView calender;
+    ImageView calender,settings;
     boolean calenderChecked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        myDb = new DatabaseHelper(this);
+        myDb = DatabaseHelper.getInstance(this);
 //        mGestureDetector = new GestureDetectorCompat(this,new GestureListener());
 
 //        editText_marks = (EditText) findViewById(R.id.editText_marks);
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
         deuceYour = findViewById(R.id.deuceYour);
         adYour = findViewById(R.id.adYour);
         calender = findViewById(R.id.calender);
-        mGestureDetector = new GestureDetectorCompat(this,new GestureListener());
+        settings = findViewById(R.id.settings);
 //        button_update = (Button)findViewById(R.id.button_update);
 //        button_delete = (Button)findViewById(R.id.button_delete);
 //        AddData();
@@ -66,9 +67,29 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
 //        UpdateData();
 //        DeleteData();
         calenderClick();
+        settingsClick();
         deuceClick();
         adClick();
         displayData();
+    }
+
+    private void settingsClick() {
+        settings.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+//                        displayDataCal(res);
+//                        Intent intent = new Intent(getBaseContext(), CalenderActivity.class);
+//                        intent.putE
+
+                        Intent settingsSwitch = new Intent(getApplicationContext(), settings.class);
+                        startActivity(settingsSwitch);
+
+
+                    }
+                }
+        );
     }
 
     private void calenderClick() {
@@ -76,10 +97,11 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        calenderChecked = true;
-                        Cursor res = myDb.getALlData();
-                        res.moveToLast();
+
 //                        displayDataCal(res);
+//                        Intent intent = new Intent(getBaseContext(), CalenderActivity.class);
+//                        intent.putE
+
                         Intent calenderSwitch = new Intent(getApplicationContext(), CalenderActivity.class);
                         startActivity(calenderSwitch);
 
@@ -143,44 +165,7 @@ public class MainActivity extends AppCompatActivity implements DataPassListener 
 //        }
 //    }
 
-    private class GestureListener extends GestureDetector.SimpleOnGestureListener {
-        //CONTROL + 0
-        // when you first create the class gives you options for all the functions you wanna make
-        //for gesture listeners
 
-
-        @Override
-        public void onLongPress(@NonNull MotionEvent e) {
-            if(calenderChecked) {
-                Toast.makeText(MainActivity.this, "Long Press", Toast.LENGTH_SHORT).show();
-            }
-            super.onLongPress(e);
-        }
-
-        @Override
-        public boolean onDoubleTapEvent(@NonNull MotionEvent e) {
-            if(calenderChecked) {
-                Toast.makeText(MainActivity.this, "Double Tap", Toast.LENGTH_SHORT).show();
-            }
-            return super.onDoubleTap(e);
-        }
-
-        @Override
-        public boolean onSingleTapConfirmed(@NonNull MotionEvent e) {
-            if(calenderChecked) {
-                Toast.makeText(MainActivity.this, "Single Tap Confirm", Toast.LENGTH_SHORT).show();
-            }
-            return super.onSingleTapConfirmed(e);
-        }
-
-
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        mGestureDetector.onTouchEvent(event);
-        return super.onTouchEvent(event);
-    }
 
     private void adClick() {
         ad.setOnClickListener(

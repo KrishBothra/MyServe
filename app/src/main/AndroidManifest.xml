@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MyServe"
         tools:targetApi="31">
         <activity
+            android:name=".settings"
+            android:exported="false" />
+        <activity
             android:name=".CalenderActivity"
             android:exported="false" />
         <activity
