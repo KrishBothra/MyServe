@@ -204,16 +204,17 @@ public class CalenderActivity extends AppCompatActivity {
         barChart.setVisibility(View.VISIBLE);
         barArrayList = new ArrayList();
         Cursor res = myDb.getALlData();
+        float x =0;
         while(res.moveToNext()){
             float percentage;
-           Toast.makeText(CalenderActivity.this,res.getInt(0)+"",Toast.LENGTH_SHORT).show();
+           //Toast.makeText(CalenderActivity.this,res.getInt(0)+"",Toast.LENGTH_SHORT).show();
             if(res.getString(5).equals(side)&&res.getInt(3)==numServe&&res.getString(4).equals(type)) {
                 float made = res.getInt(2);
                 float total = res.getInt(1);
                 percentage = (made/total)*100;
                 percentage =  Math.round(percentage * 100) / 100;
-                barArrayList.add(new BarEntry(res.getInt(0),percentage));
-
+                x++;
+                barArrayList.add(new BarEntry(x,percentage));
             }
         }
         BarDataSet barDataSet = new BarDataSet(barArrayList,"Serve Stats");
